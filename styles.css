@@ -442,6 +442,12 @@ section { padding: 5rem 3rem; }
   background: rgba(255,255,255,0.1);
   border-radius: 8px; overflow: hidden;
 }
+
+.cta-grid a {
+  display: block;
+  text-decoration: none;
+}
+
 .cta-item {
   background: rgba(255,255,255,0.05);
   padding: 2rem; text-align: center; cursor: pointer;
@@ -451,6 +457,13 @@ section { padding: 5rem 3rem; }
 .cta-item .cta-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
 .cta-item h4 { color: white; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem; }
 .cta-item p { color: rgba(255,255,255,0.55); font-size: 0.78rem; }
+
+.cta-item p { color: rgba(255,255,255,0.55); font-size: 0.78rem; }
+.cta-item a { color: var(--sand); text-decoration: none; }  
+
+.cta-grid a p {
+  color: var(--sand);
+}
 
 /* =====================
    NEWSLETTER
@@ -532,11 +545,14 @@ footer {
    COOKIE BAR
    ===================== */
 .cookie-bar {
+  display: none; /* Add this to prevent flickering on page load */
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
   background: var(--ocean-deep); color: white;
-  padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem; align-items: center; justify-content: space-between;
   gap: 1rem; font-size: 0.82rem;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.2); /* Optional: added a shadow for depth */
 }
+
 .cookie-bar a { color: var(--sand); }
 .cookie-btns { display: flex; gap: 0.75rem; flex-shrink: 0; }
 .cookie-accept {
@@ -595,6 +611,11 @@ footer {
 
   /* CTA */
   .cta-grid { grid-template-columns: repeat(2, 1fr); }
+
+.cta-grid a {
+  display: contents;
+  text-decoration: none;
+}
 
   /* Footer */
   .footer-grid {

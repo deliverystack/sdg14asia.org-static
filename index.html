@@ -1,30 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-78MD6JXLWY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
+    // 1. Immediately check for existing consent
+    const savedConsent = localStorage.getItem('cookieConsent');
+    const initialStatus = savedConsent ? savedConsent : 'denied';
+
+    gtag('consent', 'default', {
+      'ad_storage': initialStatus,
+      'ad_user_data': initialStatus,
+      'ad_personalization': initialStatus,
+      'analytics_storage': initialStatus,
+      'wait_for_update': 500
+    });
+
+    // 2. Function to handle the button clicks
+    function handleConsent(status) {
+      gtag('consent', 'update', {
+        'ad_storage': status,
+        'ad_user_data': status,
+        'ad_personalization': status,
+        'analytics_storage': status
+      });
+
+      localStorage.setItem('cookieConsent', status);
+      document.getElementById('cookieBar').style.display = 'none';
+    }
+
+    // 3. Only show the bar if they haven't decided yet
+    window.addEventListener('DOMContentLoaded', () => {
+      // Only show the bar if they haven't made a choice yet
+      if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookieBar').style.display = 'flex';
+      }
+    });
+  </script>
+
+  <!-- Your existing Google Analytics Tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-78MD6JXLWY"></script>
+  <script>
     gtag('js', new Date());
     gtag('config', 'G-78MD6JXLWY');
   </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SDG14 Asia Association</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
-    <div class="logo-badge">S14</div>
+<!--    <div class="logo-badge">-->
+  <!--//TODO: shouldn't be a link if this is the home page-->
+<a href="/" id="logo-link"><img src="/images/sdg14asia-logo.png" width="100" alt="SDG14Asia.org Logo" /></a>
+<!--    </div>-->
     SDG14 Asia Association
   </div>
 
   <!-- Desktop links -->
   <ul class="nav-links">
+<!--
     <li><a href="#">Home</a></li>
     <li><a href="#">About</a></li>
     <li><a href="#">Projects</a></li>
@@ -33,9 +76,10 @@
     <li><a href="#">Membership</a></li>
     <li><a href="#">Donate</a></li>
     <li><a href="#">Contact</a></li>
+    -->
   </ul>
 
-  <!-- Desktop right controls -->
+  <!--
   <div class="nav-right">
     <div class="lang-selector">
       <button class="lang-btn active" data-lang="en">EN</button>
@@ -46,7 +90,7 @@
       <button class="lang-btn" data-lang="zh">中文</button>
     </div>
     <button class="btn-donate">Donate</button>
-  </div>
+  </div>-->
 
   <!-- Hamburger (mobile only) -->
   <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -87,8 +131,12 @@
       <h1>Protecting Asia's Marine Future</h1>
       <p>The SDG14 Asia Association mobilizes resources, fosters scientific collaboration, and supports projects that preserve marine biodiversity across Southeast Asia — aligned with UN Sustainable Development Goal 14.</p>
       <div class="hero-cta">
-        <button class="btn-primary">Our Projects</button>
-        <button class="btn-outline">Become a Member</button>
+<!--        <button class="btn-primary">Our Projects</button>-->
+
+<button class="btn-outline" onclick="window.open('/forms/SDG14Asia-Membership-Application-Form.pdf', '_blank')">
+  Become a Member
+</button>
+
       </div>
     </div>
     <div class="hero-stats">
@@ -186,7 +234,7 @@
           <li>Member updates</li>
           <li class="no">No voting rights</li>
         </ul>
-        <button class="btn-join">Join Now</button>
+        <button class="btn-join" onclick="window.open('/forms/SDG14Asia-Membership-Application-Form.pdf', '_blank')">Join Now</button>
       </div>
       <div class="mem-card">
         <div class="mem-icon">👨‍👩‍👧</div>
@@ -199,7 +247,7 @@
           <li>Member updates</li>
           <li class="no">No voting rights</li>
         </ul>
-        <button class="btn-join">Join Now</button>
+        <button class="btn-join" onclick="window.open('/forms/SDG14Asia-Membership-Application-Form.pdf', '_blank')">Join Now</button>
       </div>
       <div class="mem-card featured">
         <div class="mem-icon">🐬</div>
@@ -212,7 +260,7 @@
           <li>1 Voting right</li>
           <li>Priority updates</li>
         </ul>
-        <button class="btn-join">Join Now</button>
+        <button class="btn-join" onclick="window.open('/forms/SDG14Asia-Membership-Application-Form.pdf', '_blank')">Join Now</button>
       </div>
       <div class="mem-card">
         <div class="mem-icon">🏆</div>
@@ -225,7 +273,7 @@
           <li>Corporate recognition</li>
           <li>Direct project input</li>
         </ul>
-        <button class="btn-join">Join Now</button>
+        <button class="btn-join" onclick="window.open('/forms/SDG14Asia-Membership-Application-Form.pdf', '_blank')">Join Now</button>
       </div>
       <div class="mem-card">
         <div class="mem-icon">⭐</div>
@@ -238,13 +286,13 @@
           <li>By invitation only</li>
           <li>Special recognition</li>
         </ul>
-        <button class="btn-join">Apply</button>
+        <button class="btn-join" onclick="window.open('/forms/SDG14Asia-Membership-Application-Form.pdf', '_blank')">Apply</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- 
 <section class="projects">
   <div class="container">
     <div class="section-label">What We Do</div>
@@ -281,8 +329,8 @@
     </div>
   </div>
 </section>
+-->
 
-<!-- QUOTE -->
 <div class="mission-quote">
   <blockquote>
     "70% of the oxygen we breathe is produced by the oceans. Protecting Asia's seas is not a choice — it is our shared responsibility."
@@ -290,7 +338,6 @@
   <cite>— SDG14 Asia Association</cite>
 </div>
 
-<!-- EVENTS -->
 <section class="events">
   <div class="container">
     <div class="section-label">Upcoming</div>
@@ -331,8 +378,7 @@
     </div>
   </div>
 </section>
-
-<!-- PARTNERS -->
+<!--
 <section class="partners">
   <div class="container">
     <div class="partners-title">Our Partners & Supporters</div>
@@ -348,34 +394,42 @@
     </div>
   </div>
 </section>
+-->
 
-<!-- CTA BAR -->
 <div class="cta-bar">
   <div class="cta-grid">
-    <div class="cta-item">
-      <div class="cta-icon">🤝</div>
-      <h4>Get in Touch</h4>
-      <p>info@sdg14asia.com</p>
-    </div>
-    <div class="cta-item">
-      <div class="cta-icon">🌊</div>
-      <h4>Become a Member</h4>
-      <p>From €30/year</p>
-    </div>
-    <div class="cta-item">
-      <div class="cta-icon">💙</div>
-      <h4>Donate</h4>
-      <p>Support our mission</p>
-    </div>
-    <div class="cta-item">
-      <div class="cta-icon">🙋</div>
-      <h4>Volunteer</h4>
-      <p>Join our projects</p>
-    </div>
+    <a href="mailto:info@sdg14asia.com">
+      <div class="cta-item">
+        <div class="cta-icon">🤝</div>
+        <h4>Get in Touch</h4>
+        <p>info@sdg14asia.com</p>
+      </div>
+    </a>
+    <a href="/forms/SDG14Asia-Membership-Application-Form.pdf" target="_blank">
+      <div class="cta-item">
+        <div class="cta-icon">🌊</div>
+        <h4>Become a Member</h4>
+        <p>From €30/year</p>
+      </div>
+    </a>
+    <a href="/forms/SDG14Asia-Membership-Application-Form.pdf" target="_blank">
+      <div class="cta-item">
+        <div class="cta-icon">💙</div>
+        <h4>Donate</h4>
+        <p>Support our mission</p>
+      </div>
+    </a>
+    <a href="mailto:info@sdg14asia.com">
+      <div class="cta-item">
+        <div class="cta-icon">🙋</div>
+        <h4>Volunteer</h4>
+        <p>Join our projects</p>
+      </div>
+    </a>
   </div>
 </div>
 
-<!-- NEWSLETTER -->
+<!--
 <section class="newsletter">
   <div class="newsletter-inner">
     <h2>Stay Informed</h2>
@@ -386,8 +440,8 @@
     </div>
   </div>
 </section>
+-->
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -399,13 +453,24 @@
         ✉️ <a href="mailto:info@sdg14asia.com">info@sdg14asia.com</a>
       </div>
       <div class="footer-social">
-        <a class="social-btn" href="#">in</a>
-        <a class="social-btn" href="#">𝕏</a>
+<!--
+
         <a class="social-btn" href="#">ig</a>
         <a class="social-btn" href="#">tk</a>
+
+-->
+
+        <a class="social-btn" href="https://www.instagram.com/sdg14asia/" target="_blank">ig</a>
+        <a class="social-btn" href="https://twitter.com/sdg14asia">X</a>
+        <a class="social-btn" href="https://www.youtube.com/@sdg14asia">yt</a>
+
+
+
+
       </div>
     </div>
     <div class="footer-col">
+    <!--
       <h5>The Association</h5>
       <ul>
         <li><a href="#">About Us</a></li>
@@ -415,8 +480,10 @@
         <li><a href="#">Partners</a></li>
         <li><a href="#">Timeline</a></li>
       </ul>
+    -->
     </div>
     <div class="footer-col">
+    <!--
       <h5>Projects</h5>
       <ul>
         <li><a href="#">Coral Restoration</a></li>
@@ -425,8 +492,10 @@
         <li><a href="#">Research Grants</a></li>
         <li><a href="#">All Projects</a></li>
       </ul>
+  -->
     </div>
     <div class="footer-col">
+    <!--
       <h5>Media</h5>
       <ul>
         <li><a href="#">Stories</a></li>
@@ -435,8 +504,10 @@
         <li><a href="#">Videos</a></li>
         <li><a href="#">Photo Gallery</a></li>
       </ul>
+  -->
     </div>
     <div class="footer-col">
+    <!--
       <h5>Engage</h5>
       <ul>
         <li><a href="#">Membership</a></li>
@@ -446,23 +517,27 @@
         <li><a href="#">Contact</a></li>
       </ul>
     </div>
+  -->
   </div>
   <div class="footer-bottom">
     <span>© 2026 SDG14 Asia Association. All rights reserved.</span>
+<!--
     <div class="footer-bottom-links">
       <a href="#">Privacy Policy</a>
       <a href="#">Cookie Policy</a>
       <a href="#">Terms of Use</a>
     </div>
+    -->
   </div>
 </footer>
 
 <!-- COOKIE BAR -->
-<div class="cookie-bar" id="cookieBar">
-  <span>We use cookies to improve your experience. <a href="#">Learn more</a> in our Privacy Policy.</span>
+<div class="cookie-bar" id="cookieBar" style="display: none;">
+  <span>We use cookies to improve your experience. <!--<a href="/privacy-policy">Learn more</a> in our Privacy Policy.--></span>
   <div class="cookie-btns">
-    <button class="cookie-accept" onclick="dismissCookieBar()">Accept</button>
-    <button class="cookie-decline" onclick="dismissCookieBar()">Decline</button>
+    <!-- Pass 'granted' for Accept and 'denied' for Decline -->
+    <button class="cookie-accept" onclick="handleConsent('granted')">Accept</button>
+    <button class="cookie-decline" onclick="handleConsent('denied')">Decline</button>
   </div>
 </div>
 
